@@ -25,7 +25,7 @@ Runs the same `cactus.js` + `cactus.wasm` + `mirage.cact` engine as the browser 
 ## Build & install
 
 1. Add this repo : https://github.com/Zoltant7/cactus
-2. In HA, go to **Settings → Add-ons → Add-on Store** → top-right menu → **Reload**. The "Cactus Mirage Describe" add-on should appear in the list of local add-ons.
+2. In HA, go to **Settings → Apps → top-right menu → **Reload**. The "Cactus Mirage Describe" add-on should appear in the list of local add-ons.
 3. Click it, then **Install**. First build pulls a Node.js image (~80 MB) and installs `sharp` — takes 3-5 minutes.
 4. **Start** the add-on. Check the **Log** tab — you should see:
 
