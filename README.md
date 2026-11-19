@@ -54,7 +54,7 @@ Runs the same `cactus.js` + `cactus.wasm` + `mirage.cact` engine as the browser 
 
    ```bash
    curl -X POST -H "content-type: application/octet-stream" \
-     --data-binary "@/config/test.jpg" \
+     --data-binary "@/test.jpg" \
      http://cactus_mirage:3002/describe
    ```
 
