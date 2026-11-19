@@ -1,0 +1,22 @@
+name: Cactus Mirage Describe
+version: "1.0.0"
+slug: cactus_mirage
+description: Local image description (scene, objects, OCR) using the Cactus Mirage model in WebAssembly. No cloud, no API keys.
+arch:
+  - amd64
+  - aarch64
+init: false
+webui: http://[HOST]:[PORT:3002]/health
+ports:
+  3002/tcp: 3002
+ports_description:
+  3002/tcp: HTTP endpoint for image description
+options:
+  log_level: info
+schema:
+  log_level: list(info|warn|error|debug)
+host_network: false
+# Add-on can reach HA itself via the supervisor API if you want to push
+# events to a sensor — enable this if you want that integration.
+hassio_api: false
+hassio_role: default
