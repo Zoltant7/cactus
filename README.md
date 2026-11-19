@@ -53,6 +53,8 @@ Runs the same `cactus.js` + `cactus.wasm` + `mirage.cact` engine as the browser 
          http://localhost:3002/describe
    ```
 ## Using from a HA automation (YAML)
+   So when an image is saved, the trigger event is dispatched and the automatisation trigger kicks in to send the image to our Cactus endpoint from where we will get back the evaluation !
+   In the example we search for a "convertible car"  (because my fancy neighbor was annoying enough to provide the sample ).
 
 ```yaml
 automation:
