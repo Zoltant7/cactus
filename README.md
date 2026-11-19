@@ -24,25 +24,15 @@ Runs the same `cactus.js` + `cactus.wasm` + `mirage.cact` engine as the browser 
 
 ## Build & install
 
-1. Put the add-on files on your HA machine.
+1. Add this repo : https://github.com/Zoltant7/cactus
 
    Easiest: if you have the **Samba** or **Samba share** add-on, drop the whole `ha-addon-cactus/` folder into `/addons/` on your HA share. Otherwise use the **File editor** add-on or SSH.
 
-2. Copy your working engine files into the add-on before building:
+2. In HA, go to **Settings → Add-ons → Add-on Store** → top-right menu → **Reload**. The "Cactus Mirage Describe" add-on should appear in the list of local add-ons.
 
-   ```
-   ha-addon-cactus/app/vendor/cactus.js
-   ha-addon-cactus/app/vendor/cactus.wasm
-   ha-addon-cactus/app/models/mirage.cact
-   ```
+3. Click it, then **Install**. First build pulls a Node.js image (~80 MB) and installs `sharp` — takes 3-5 minutes.
 
-   (Same files you already downloaded for the browser app. Don't re-download — the truncated-file bug we just fixed lives there too.)
-
-3. In HA, go to **Settings → Add-ons → Add-on Store** → top-right menu → **Reload**. The "Cactus Mirage Describe" add-on should appear in the list of local add-ons.
-
-4. Click it, then **Install**. First build pulls a Node.js image (~80 MB) and installs `sharp` — takes 3-5 minutes.
-
-5. **Start** the add-on. Check the **Log** tab — you should see:
+4. **Start** the add-on. Check the **Log** tab — you should see:
 
    ```
    [cactus] loading engine (first run takes a few seconds)…
@@ -50,16 +40,22 @@ Runs the same `cactus.js` + `cactus.wasm` + `mirage.cact` engine as the browser 
    Cactus describe service → http://0.0.0.0:3002
    ```
 
-6. Test from inside HA (Settings → Add-ons → Terminal & SSH → Open):
+5. Test from inside HA (Settings → Add-ons → Terminal & SSH → Open) OPTIONAL:
 
    ```bash
    curl -X POST -H "content-type: application/octet-stream" \
      --data-binary "@/test.jpg" \
-     http://cactus_mirage:3002/describe
+     http://localhost:3002/describe
    ```
-
-   Note the hostname `cactus_mirage` — that's the add-on slug, resolvable inside the HA add-on network.
-
+6. Add to the configuration.yaml (reboot , or reload , now you'll have the shell action available in the automations )
+   ```yaml
+   shell_command:
+       describe_image: >
+         curl -s -X POST
+         -H "Content-Type: application/octet-stream"
+         --data-binary "@{{ file_path }}"
+         http://localhost:3002/describe
+   ```
 ## Using from Node-RED
 
 In your Node-RED `http request` node, point to:
@@ -76,24 +72,41 @@ Import the flow `nodered-cactus-flow.json` and change the URL accordingly.
 
 ```yaml
 automation:
-  - alias: "Describe new image"
-    trigger:
-      - platform: folder_watcher
-        folder: "/config/images/incoming"
-    action:
-      - service: rest_command.describe_image
+  - alias: cactus
+    description: Analyze camera10 snapshots with Cactus Mirage and alert whatever detection
+    triggers:
+      - trigger: event.received
+        target:
+          entity_id: event.folder_watcher_share_motioneye_camera10
+        options:
+          event_type:
+            - created
+    conditions: []
+    actions:
+      - action: shell_command.describe_image
         data:
-          file_path: "{{ trigger.event.data.path }}"
+          file_path: '{{ trigger.to_state.attributes.path }}'
+        response_variable: cactus_result
+      - variables:
+          vision: '{{ cactus_result.stdout | from_json }}'
+          detected_objects: '{{ vision.objects | map(attribute=''name'') | unique | list }}'
+          orkcs: |
+            {{ vision.objects
+               | selectattr('name', 'equalto', 'convertible car')
+               | selectattr('score', '>=', 0.3)
+               | list }}
+      - condition: template
+        value_template: '{{ orkcs | count > 0 }}'
+      - action: notify.mobile_app
+        data:
+          title: Spotted on Camera 10
+          message: >
+            Scene: {{ vision.scene.setting }} ({{ vision.scene.lighting }}).
+            Objects: {{ detected_objects | join(', ') }}.
+    mode: queued
+    max: 5
 ```
 
-```yaml
-rest_command:
-  describe_image:
-    url: "http://cactus_mirage:3002/describe"
-    method: POST
-    content_type: "application/octet-stream"
-    # For binary upload, use the file payload approach.
-```
 
 (Sending a binary body from a HA automation needs a small intermediate step — usually easier to do via Node-RED. Use the Node-RED flow above and trigger it from HA via MQTT or the Node-RED companion integration.)
 
