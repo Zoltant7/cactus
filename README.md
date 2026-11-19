@@ -19,7 +19,7 @@ Runs the same `cactus.js` + `cactus.wasm` + `mirage.cact` engine as the browser 
     │   └── cactus.wasm
     └── models/
         └── mirage.cact
-        └──config.json  
+        └── config.json  
         
 ```
 
