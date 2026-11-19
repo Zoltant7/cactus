@@ -56,18 +56,6 @@ Runs the same `cactus.js` + `cactus.wasm` + `mirage.cact` engine as the browser 
          --data-binary "@{{ file_path }}"
          http://localhost:3002/describe
    ```
-## Using from Node-RED
-
-In your Node-RED `http request` node, point to:
-
-```
-http://cactus_mirage:3002/describe
-```
-
-(or `http://<HA-IP>:3002/describe` from outside the add-on network — the add-on maps port 3002 to your HA host.)
-
-Import the flow `nodered-cactus-flow.json` and change the URL accordingly.
-
 ## Using from a HA automation (YAML)
 
 ```yaml
@@ -106,6 +94,19 @@ automation:
     mode: queued
     max: 5
 ```
+
+   
+## Using from Node-RED
+
+In your Node-RED `http request` node, point to:
+
+```
+http://cactus_mirage:3002/describe
+```
+
+(or `http://<HA-IP>:3002/describe` from outside the add-on network — the add-on maps port 3002 to your HA host.)
+
+Import the flow `nodered-cactus-flow.json` and change the URL accordingly.
 
 
 (Sending a binary body from a HA automation needs a small intermediate step — usually easier to do via Node-RED. Use the Node-RED flow above and trigger it from HA via MQTT or the Node-RED companion integration.)
