@@ -1,6 +1,6 @@
 # Cactus Mirage Home Assistant Add-on
 
-Runs the same `cactus.js` + `cactus.wasm` + `mirage.cact` engine as the browser demo, but inside the Home Assistant add-on container. Exposes an HTTP endpoint that Node-RED (or any HA automation) can call to describe images.
+Runs the same `cactus.js` + `cactus.wasm` + `mirage.cact` engine as the browser demo, but inside the Home Assistant add-on container. Exposes an HTTP endpoint that Node-RED (or any HA automation) can call to describe images. (https://github.com/cactus-compute/cactus)
 
 ## Layout inside the add-on
 
