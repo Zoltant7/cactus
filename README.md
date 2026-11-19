@@ -14,12 +14,13 @@ Runs the same `cactus.js` + `cactus.wasm` + `mirage.cact` engine as the browser 
 │           └── 00-setup.sh        (creates /data/app folder)
 └── app/
     ├── cactus-node.mjs            (the HTTP service)
-    ├── package.json
     ├── vendor/
     │   ├── cactus.js              (you copy these in)
     │   └── cactus.wasm
     └── models/
         └── mirage.cact
+        └──config.json  
+        
 ```
 
 ## Build & install
