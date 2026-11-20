@@ -9,7 +9,6 @@ Runs the same `cactus.js` + `cactus.wasm` + `mirage.cact` engine as the browser 
 ```
 1.Settings > Add-ons > Plus > Repositories > Add 
 ```
-```
 https://github.com/Zoltant7/cactus
 ```
 3. Click it, then **Install**. First build pulls a Node.js image (~80 MB) and installs `sharp` — takes 3-5 minutes.
