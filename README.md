@@ -6,8 +6,9 @@ Runs the same `cactus.js` + `cactus.wasm` + `mirage.cact` engine as the browser 
 ```
 
 ## install
-
+```
 1.Settings > Add-ons > Plus > Repositories > Add 
+```
 ```
 https://github.com/Zoltant7/cactus
 ```
