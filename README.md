@@ -31,7 +31,7 @@ https://github.com/Zoltant7/cactus
          http://localhost:3002/describe
    ```
 ## Using from a HA automation (YAML)
-   So when an image is saved, the Folder watcher sends an event , the automatisation trigger kicks in to send the image to our Cactus endpoint from where we will get back the evaluation !
+   So when an image is saved, the Folder watcher sends an event , the automation trigger kicks in to send the image to our Cactus endpoint from where we will get back the evaluation !
    In the example we search for a "convertible car"  (because my fancy neighbor was annoying enough to provide the sample ).
 
 ```yaml
