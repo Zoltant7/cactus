@@ -6,17 +6,13 @@ Runs the same `cactus.js` + `cactus.wasm` + `mirage.cact` engine as the browser 
 ```
 
 ## install
+[![Open your Home Assistant instance and show the add app repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FZoltant7%2Fcactus)
 
 1. Add this repo : https://github.com/Zoltant7/cactus
 2. In HA, go to **Settings → Apps → top-right menu → **Reload**. The "Cactus Mirage Describe" add-on should appear in the list of local add-ons.
 3. Click it, then **Install**. First build pulls a Node.js image (~80 MB) and installs `sharp` — takes 3-5 minutes.
 4. **Start** the add-on. Check the **Log** tab — you should see:
 
-   ```
-   [cactus] loading engine (first run takes a few seconds)…
-   [cactus] engine ready, model: 21600000 bytes
-   Cactus describe service → http://0.0.0.0:3002
-   ```
 
 5. Test from inside HA (Settings → Add-ons → Terminal & SSH → Open) OPTIONAL:
 
