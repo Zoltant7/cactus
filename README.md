@@ -83,11 +83,6 @@ Import the flow `node_red__flow_cactus.json` from the repo dir and change the UR
 
 (Sending a binary body from a HA automation needs a small intermediate step — usually easier to do via Node-RED. Use the Node-RED flow above and trigger it from HA via MQTT or the Node-RED companion integration.)
 
-## Logs & troubleshooting
-
-- Add-on **Log** tab shows engine load + per-request timing
-- If startup fails with `Missing file: .../cactus.js`, you forgot to copy the engine files in step 2
-- If `sharp` install fails on aarch64, change the Dockerfile `FROM` line to `node:20-bookworm` (slower install, wider arch support)
 
 ## Resources
 
