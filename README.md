@@ -1,29 +1,11 @@
-# Cactus Mirage Home Assistant Add-on
+# Cactus Mirage Home Assistant App
 
 Runs the same `cactus.js` + `cactus.wasm` + `mirage.cact` engine as the browser demo, but inside the Home Assistant add-on container. Exposes an HTTP endpoint that Node-RED (or any HA automation) can call to describe images. (https://github.com/cactus-compute/cactus)
 
-## Layout inside the add-on
 
 ```
-/                  (add-on repo root)
-├── config.yaml
-├── Dockerfile
-├── rootfs/
-│   └── etc/
-│       └── cont-init.d/
-│           └── 00-setup.sh        (creates /data/app folder)
-└── app/
-    ├── cactus-node.mjs            (the HTTP service)
-    ├── vendor/
-    │   ├── cactus.js              (you copy these in)
-    │   └── cactus.wasm
-    └── models/
-        └── mirage.cact
-        └── config.json  
-        
-```
 
-## Build & install
+## install
 
 1. Add this repo : https://github.com/Zoltant7/cactus
 2. In HA, go to **Settings → Apps → top-right menu → **Reload**. The "Cactus Mirage Describe" add-on should appear in the list of local add-ons.
